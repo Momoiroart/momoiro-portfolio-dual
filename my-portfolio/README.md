@@ -1,36 +1,45 @@
-# Momoiro's Workshop — Portfolio
+# Momoiro's Workshop — Static Portfolio (Legacy + Fallback)
 
-Static portfolio site for Momoiro's Workshop (digital art + programming).
+Original static HTML version of the portfolio.
 
-## Current repo scan (updated)
-- Project type: **single-page static site** (HTML with inline CSS/JS)
-- Main file: `src/index.html`
-- Duplicate working copy: `index.html` (same hash as `src/index.html`)
-- No build system detected (`package.json`, `requirements.txt`, etc. not found)
-- External dependency: Google Fonts (Orbitron, Space Mono, Syne)
+> This project is now mirrored by an Astro migration in `../astro-portfolio/`.
+> Keep this static version as fallback/reference unless intentionally decommissioned.
+
+## Current status
+- Type: single-page static site (HTML + inline CSS/JS)
+- Main static file: `src/index.html`
+- Mirror copy: `index.html`
+- Shared content source: `../shared-content/content.js`
+- Raw media library: `storage/raw-media/`
 
 ## Structure
-- `src/` — primary source files (`index.html`)
-- `assets/images/` — image assets (reserved)
-- `assets/video/` — video assets (reserved)
-- `backup/` — timestamped backups
-- `storage/raw-media/` — raw source media library (images/videos/docs/models)
+- `src/index.html` — canonical static source
+- `index.html` — mirror/compat copy
+- `backup/` — timestamped snapshots
+- `storage/raw-media/` — images/videos/assets used by both static and Astro
 
-## Backups currently found
-- `backup/index-2026-02-18-0139.html`
-- `backup/index-2026-02-18-2236.html`
-- `backup/index-.html` *(likely accidental filename; still kept as backup)*
+## How static and Astro work together
+- Astro app: `../astro-portfolio/`
+- Shared data file: `../shared-content/content.js`
+- Astro serves media directly from this repo via `publicDir` config
 
-## Run locally
-Open either file in a browser:
-- `src/index.html` (recommended canonical source)
-- `index.html` (mirror copy)
+So:
+- Update content once in `shared-content/content.js`
+- Keep static and Astro in sync with shared data
+
+## Run static version
+Open `src/index.html` in a browser.
 
 ## Editing workflow (recommended)
-1. Edit only `src/index.html`.
-2. After major changes, copy it to `backup/index-YYYY-MM-DD-HHMM.html`.
-3. If needed, sync `index.html` from `src/index.html`.
+1. Prefer editing shared content in `../shared-content/content.js`.
+2. If static-specific styling/behavior is needed, edit `src/index.html`.
+3. After major static changes, create a backup file:
+   - `backup/index-YYYY-MM-DD-HHMM.html`
+4. Optionally sync `index.html` from `src/index.html`.
 
-## TODO (optional cleanup)
-- Remove or rename `backup/index-.html` to a timestamped filename.
-- Keep one canonical entry point long-term (`src/index.html`).
+## Astro migration note
+Astro implementation is componentized and easier to maintain for future growth.
+Use static version as:
+- fallback deployment
+- visual parity reference
+- quick offline single-file copy
