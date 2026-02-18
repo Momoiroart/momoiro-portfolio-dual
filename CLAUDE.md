@@ -19,8 +19,7 @@ D:\Claude\
 ├── HEARTBEAT.md
 ├── BOOTSTRAP.md
 │
-├── projects/
-│   └── portfolio/
+├── my-portfolio/
 │       ├── README.md
 │       ├── src/
 │       │   └── index.html             # Main portfolio (single HTML file with all CSS/JS)
@@ -45,12 +44,12 @@ D:\Claude\
 This is a static HTML file - no build process required.
 
 **Preview locally:**
-- Open `projects/portfolio/src/index.html` in a web browser
-- Or run `npx serve D:/Claude/projects/portfolio/src` in the project directory
+- Open `my-portfolio/src/index.html` in a web browser
+- Or run `npx serve D:/Claude/my-portfolio/src` in the project directory
 
 **Deploy to Netlify:**
 - Go to https://app.netlify.com/drop
-- Drag the `projects/portfolio/` folder (including `src/` and any linked assets)
+- Drag the `my-portfolio/` folder (including `src/` and any linked assets)
 
 **Note:** Media files live in `storage/raw-media/`. If the HTML references `WorkStorage/...` paths, they may need updating to `../../../storage/raw-media/...` relative to `src/index.html`.
 
