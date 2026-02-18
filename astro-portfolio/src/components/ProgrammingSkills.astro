@@ -1,0 +1,21 @@
+---
+interface SkillItem { name: string; color: 'cyan' | 'violet' | 'pink'; }
+interface Props { skills: SkillItem[]; }
+const { skills } = Astro.props;
+---
+
+<!-- ══════════════════ PROGRAMMING SKILLS ══════════════════ -->
+<section class="section reveal">
+  <p class="section-label">Programming Skills</p>
+  <h2 class="section-title">What I <em>code</em></h2>
+
+  <p class="project-description">
+    I teach programming to children and have mastered these technologies through daily classroom experience.
+  </p>
+
+  <div class="prog-skills">
+    {skills.map(s => (
+      <span class={`prog-skill ${s.color}`}>{s.name}</span>
+    ))}
+  </div>
+</section>

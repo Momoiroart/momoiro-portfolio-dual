@@ -1,0 +1,21 @@
+---
+interface ContactLink { icon: string; name: string; username: string; url: string; }
+interface Props { links: ContactLink[]; }
+const { links } = Astro.props;
+---
+
+<!-- ══════════════════ CONTACT ══════════════════ -->
+<section class="section reveal">
+  <p class="section-label">Contact</p>
+  <h2 class="section-title">Get in <em>touch</em></h2>
+
+  <div class="contact-grid" style="margin-top: 32px;">
+    {links.map(l => (
+      <a href={l.url} target="_blank" rel="noopener noreferrer" class="contact-card">
+        <span class="contact-icon">{l.icon}</span>
+        <span class="contact-name">{l.name}</span>
+        <span class="contact-username">{l.username}</span>
+      </a>
+    ))}
+  </div>
+</section>

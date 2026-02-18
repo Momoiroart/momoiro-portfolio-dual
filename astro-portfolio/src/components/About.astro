@@ -1,0 +1,77 @@
+---
+interface Props { mediaBase: string; }
+const { mediaBase } = Astro.props;
+---
+
+<!-- ══════════════════ ABOUT (intro) ══════════════════ -->
+<section class="section reveal">
+  <p class="section-label">About</p>
+  <h2 class="section-title">Hello, I'm <em>Momoiro</em></h2>
+
+  <div class="about-content" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; margin-top: 32px;">
+    <div class="about-text">
+      <p class="project-description">
+        I'm a digital artist and programmer based in Thailand, passionate about creating immersive experiences through art and code.
+      </p>
+      <p class="project-description">
+        With experience in Live2D animation, 3D modeling, Unity development, and Python programming, I bridge the gap between creative design and technical implementation.
+      </p>
+      <p class="project-description">
+        I also teach programming to children, sharing my love for code and helping the next generation discover the joy of creating with technology.
+      </p>
+      <div class="about-stats" style="display: flex; gap: 32px; margin-top: 24px;">
+        <div>
+          <p style="font-family: 'Orbitron'; font-size: 28px; color: var(--pink-momo);">3+</p>
+          <p style="font-size: 11px; color: var(--text-body);">Years Experience</p>
+        </div>
+        <div>
+          <p style="font-family: 'Orbitron'; font-size: 28px; color: var(--cyan-glow);">50+</p>
+          <p style="font-size: 11px; color: var(--text-body);">Projects Completed</p>
+        </div>
+        <div>
+          <p style="font-family: 'Orbitron'; font-size: 28px; color: var(--lavender);">100+</p>
+          <p style="font-size: 11px; color: var(--text-body);">Students Taught</p>
+        </div>
+      </div>
+    </div>
+    <div class="about-image" style="text-align: center;">
+      <img src={mediaBase + 'Mymodel01 (1).png'} alt="Momoiro"
+        style="max-width: 280px; border-radius: 20px; border: 1px solid rgba(255,107,157,0.3);" loading="lazy"/>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ══════════════════ ABOUT (extended) ══════════════════ -->
+<section class="section reveal" id="about">
+  <p class="section-label">About</p>
+  <h2 class="section-title">Meet the <em>creator</em></h2>
+
+  <div class="about-content" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; margin-top: 32px;">
+    <div class="about-text">
+      <p class="project-description" style="font-size: 15px; line-height: 1.8; margin-bottom: 20px;">
+        Hi! I'm <strong style="color: var(--pink-soft);">Momoiro</strong> — a digital artist and programmer based in Thailand. I specialize in creating vibrant character designs, Live2D models, and immersive VRChat worlds.
+      </p>
+      <p class="project-description" style="font-size: 14px; line-height: 1.8; margin-bottom: 20px;">
+        With over <strong style="color: var(--cyan-glow);">5 years</strong> of experience in both art and coding, I bridge the gap between creativity and technology. My teaching background in programming (Python, C#, Lua) has given me patience and the ability to break down complex concepts into digestible lessons.
+      </p>
+      <p class="project-description" style="font-size: 14px; line-height: 1.8; margin-bottom: 20px;">
+        <strong style="color: var(--pink-soft);">My Students & Collaborations:</strong> Many of my students have created amazing projects! My Roblox account <strong style="color: var(--cyan-glow);">Pakaphon</strong> showcases collaborative work. All my connections are my students — we're a creative family building together!
+      </p>
+      <p class="project-description" style="font-size: 14px; line-height: 1.8;">
+        When I'm not creating art or coding, you'll find me teaching, learning new technologies, or exploring virtual worlds. I believe in continuous growth and sharing knowledge with the community.
+      </p>
+    </div>
+    <div class="about-image" style="text-align: center;">
+      <div style="width: 200px; height: 200px; margin: 0 auto; border-radius: 50%; background: linear-gradient(135deg, var(--pink-momo), var(--violet)); padding: 3px;">
+        <div style="width: 100%; height: 100%; border-radius: 50%; background: var(--deep); display: flex; align-items: center; justify-content: center; overflow: hidden;">
+          <img id="discord-avatar" src={mediaBase + 'discord-avatar.png'} alt="Discord Avatar"
+            style="width: 100%; height: 100%; object-fit: cover;"
+            onerror="this.style.display='none'; this.parentElement.innerHTML='🎨';"/>
+        </div>
+      </div>
+      <p style="margin-top: 12px; color: var(--lavender); font-size: 12px;">Discord: @momoiro_nobe</p>
+    </div>
+  </div>
+</section>

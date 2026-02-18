@@ -1,0 +1,81 @@
+---
+interface PopupProject { title: string; desc: string; }
+interface PopupEntry {
+  title: string;
+  category: string;
+  description: string;
+  media: string[];  // filenames only
+  projects: PopupProject[];
+}
+interface Props {
+  popupData: Record<string, PopupEntry>;
+  mediaBase: string;
+}
+const { popupData, mediaBase } = Astro.props;
+
+// Serialise for the browser script
+const serialized = JSON.stringify(popupData);
+---
+
+<!-- Popup Modal -->
+<div class="popup-overlay" id="popupOverlay" onclick="closePopup(event)">
+  <div class="popup-content" onclick="event.stopPropagation()">
+    <button class="popup-close" onclick="closePopup()">&times;</button>
+    <h2 class="popup-title" id="popupTitle">Title</h2>
+    <span class="popup-category" id="popupCategory">Category</span>
+    <p class="popup-description" id="popupDescription">Description</p>
+    <div class="popup-media" id="popupMedia"></div>
+    <h3 class="popup-projects-title">Related Projects</h3>
+    <div class="popup-project-list" id="popupProjects"></div>
+  </div>
+</div>
+
+<script define:vars={{ serialized, mediaBase }}>
+  // Build popupData with full paths
+  const rawData = JSON.parse(serialized);
+  const popupData = {};
+  for (const key in rawData) {
+    popupData[key] = Object.assign({}, rawData[key], {
+      media: rawData[key].media.map((f) => mediaBase + f),
+    });
+  }
+
+  window.openPopup = function (key) {
+    const data = popupData[key];
+    if (!data) return;
+
+    document.getElementById('popupTitle').textContent = data.title;
+    document.getElementById('popupCategory').textContent = data.category;
+    document.getElementById('popupDescription').textContent = data.description;
+
+    const mediaContainer = document.getElementById('popupMedia');
+    mediaContainer.innerHTML = '';
+    data.media.forEach((src) => {
+      if (src.endsWith('.mp4')) {
+        mediaContainer.innerHTML += `<video controls><source src="${src}" type="video/mp4"/></video>`;
+      } else {
+        mediaContainer.innerHTML += `<img src="${src}" alt="${data.title}"/>`;
+      }
+    });
+
+    const projectsContainer = document.getElementById('popupProjects');
+    projectsContainer.innerHTML = '';
+    data.projects.forEach((p) => {
+      projectsContainer.innerHTML += `
+        <div class="popup-project-item">
+          <h4>${p.title}</h4>
+          <p>${p.desc}</p>
+        </div>
+      `;
+    });
+
+    document.getElementById('popupOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closePopup = function (event) {
+    if (event && event.target !== event.currentTarget) return;
+    document.getElementById('popupOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+  };
+</script>

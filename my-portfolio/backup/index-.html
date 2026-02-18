@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Momoiro's Workshop — Portfolio</title>
+<meta name="description" content="Momoiro's Workshop - Digital artist and programmer specializing in Live2D, 3D modeling, Unity development, and Python programming. VTuber models, VRChat worlds, and custom software."/>
+<meta property="og:title" content="Momoiro's Workshop - Digital Art & Coding Portfolio"/>
+<meta property="og:description" content="Computer Graphics · Programming · Game Development"/>
+<meta property="og:type" content="website"/>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --void: #05030f;
+    --deep: #0d0820;
+    --nebula: #1a0e35;
+    --iolite: #4b2fa0;
+    --violet: #7c4fd0;
+    --lavender: #b48fff;
+    --cyan-glow: #4af0e8;
+    --cyan-dim: #1ec9c2;
+    --star-white: #e8e0ff;
+    --text-body: #c8b8f0;
+    --pink-momo: #ff6b9d;
+    --pink-soft: #ff9ec4;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--void);
+    color: var(--text-body);
+    font-family: 'Space Mono', monospace;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Touch devices: show normal cursor */
+  @media (hover: none) {
+    body { cursor: auto; }
+    #cursor, #cursor-dot { display: none !important; }
+  }
+
+  /* Focus states for accessibility */
+  *:focus-visible {
+    outline: 2px solid var(--cyan-glow);
+    outline-offset: 2px;
+  }
+
+  /* Skip link for accessibility */
+  .skip-link {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 24px;
+    background: var(--pink-momo);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    z-index: 10000;
+    transition: top 0.3s;
+  }
+  .skip-link:focus {
+    top: 16px;
+  }
+
+  /* ── Custom cursor ── */
+  #cursor {
+    position: fixed; pointer-events: none; z-index: 9999;
+    width: 16px; height: 16px;
+    border: 2px solid var(--pink-momo);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width .15s, height .15s, background .15s;
+    box-shadow: 0 0 10px var(--pink-momo), 0 0 30px rgba(255,107,157,0.3);
+  }
+  #cursor-dot {
+    position: fixed; pointer-events: none; z-index: 9999;
+    width: 4px; height: 4px;
+    background: var(--pink-momo);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+  body:hover #cursor { width: 24px; height: 24px; }
+
+  /* Touch device cursor fix */
+  @media (hover: none) {
+    #cursor, #cursor-dot { display: none; }
+    body { cursor: auto; }
+  }
+
+  /* Focus states for accessibility */
+  *:focus-visible {
+    outline: 2px solid var(--cyan-glow);
+    outline-offset: 2px;
+  }
+
+  /* Skip link for accessibility */
+  .skip-link {
+    position: absolute; left: -9999px; top: 0;
+    background: var(--pink-momo); color: #fff;
+    padding: 12px 24px; z-index: 10000;
+    text-decoration: none; font-weight: bold;
+  }
+  .skip-link:focus { left: 0; }
+
+  /* ── Star canvas ── */
+  #starfield {
+    position: fixed; inset: 0; z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ── Floating orbs ── */
+  .orb {
+    position: fixed; border-radius: 50%; pointer-events: none;
+    filter: blur(80px); z-index: 0; opacity: 0.18;
+    animation: driftOrb 20s ease-in-out infinite alternate;
+  }
+  .orb-1 { width: 500px; height: 500px; background: var(--iolite); top: -150px; left: -100px; animation-duration: 18s; }
+  .orb-2 { width: 350px; height: 350px; background: var(--cyan-dim); top: 30%; right: -80px; animation-duration: 24s; animation-delay: -8s; }
+  .orb-3 { width: 280px; height: 280px; background: var(--pink-momo); bottom: -80px; left: 30%; animation-duration: 20s; animation-delay: -4s; opacity: 0.12; }
+  @keyframes driftOrb {
+    from { transform: translate(0, 0) scale(1); }
+    to   { transform: translate(40px, 30px) scale(1.1); }
+  }
+
+  /* ── Floating Model Decoration ── */
+  #model-decoration {
+    position: fixed;
+    right: 5%;
+    bottom: 10%;
+    width: 280px;
+    height: 400px;
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0.85;
+    animation: floatModel 6s ease-in-out infinite;
+  }
+  #model-decoration img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 30px rgba(255,107,157,0.3));
+  }
+  @keyframes floatModel {
+    0%, 100% { transform: translateY(0px) rotate(2deg); }
+    50% { transform: translateY(-20px) rotate(-2deg); }
+  }
+
+  /* ── Main layout ── */
+  .page { position: relative; z-index: 1; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 60px 24px;
+    position: relative;
+  }
+
+  .hero-orb {
+    width: 80px; height: 80px;
+    background: radial-gradient(circle at 38% 38%, #fff 0%, var(--pink-momo) 30%, var(--violet) 70%, transparent 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 40px var(--pink-momo), 0 0 100px rgba(255,107,157,0.4), 0 0 200px rgba(124,79,208,0.3);
+    animation: pulseOrb 4s ease-in-out infinite;
+    margin-bottom: 200px;
+  }
+  @keyframes pulseOrb {
+    0%,100% { box-shadow: 0 0 40px var(--pink-momo), 0 0 100px rgba(255,107,157,0.4), 0 0 200px rgba(124,79,208,0.3); }
+    50% { box-shadow: 0 0 60px var(--pink-momo), 0 0 150px rgba(255,107,157,0.6), 0 0 280px rgba(124,79,208,0.5); }
+  }
+
+  .hero-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(10px, 2vw, 13px);
+    letter-spacing: 0.4em;
+    color: var(--pink-momo);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.3s;
+  }
+  .hero-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(32px, 8vw, 90px);
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #ffffff 0%, var(--pink-soft) 40%, var(--lavender) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.6s;
+    position: relative; z-index: 2;
+  }
+  .hero-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(11px, 1.5vw, 14px);
+    color: var(--lavender);
+    letter-spacing: 0.1em;
+    margin-top: 20px;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.9s;
+  }
+  .hero-tags {
+    display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+    margin-top: 28px;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 1.2s;
+  }
+  .tag {
+    padding: 6px 16px;
+    border: 1px solid rgba(255,107,157,0.4);
+    border-radius: 100px;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--pink-soft);
+    background: rgba(255,107,157,0.06);
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+  .tag:hover {
+    background: rgba(255,107,157,0.15);
+    border-color: var(--pink-momo);
+    box-shadow: 0 0 16px rgba(255,107,157,0.3);
+  }
+
+  .scroll-hint {
+    position: absolute; bottom: 32px;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    opacity: 0; animation: fadeUp 1s ease forwards 1.8s;
+  }
+  .scroll-hint span { font-size: 10px; letter-spacing: 0.2em; color: var(--iolite); text-transform: uppercase; }
+  .scroll-line {
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, var(--pink-momo), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse { 0%,100%{opacity:0.3;} 50%{opacity:1;} }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform: translateY(20px); }
+    to   { opacity:1; transform: translateY(0); }
+  }
+
+  /* ── Sections ── */
+  .section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 80px 24px;
+  }
+
+  .section-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: var(--pink-momo);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, rgba(255,107,157,0.4), transparent);
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+  .section-title em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--pink-soft), var(--cyan-glow));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ── Skills grid (Buttons) ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .skill-card {
+    background: rgba(26,14,53,0.6);
+    border: 1px solid rgba(255,107,157,0.2);
+    border-radius: 16px;
+    padding: 28px 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  .skill-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    border-color: rgba(255,107,157,0.5);
+    box-shadow: 0 20px 60px rgba(255,107,157,0.15);
+  }
+  .skill-card.active {
+    border-color: var(--pink-momo);
+    box-shadow: 0 0 30px rgba(255,107,157,0.3);
+  }
+  .skill-icon {
+    font-size: 36px;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .skill-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--pink-soft);
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+  }
+  .skill-card p {
+    font-size: 11.5px;
+    color: var(--text-body);
+    line-height: 1.6;
+    opacity: 0.8;
+  }
+
+  /* ── Popup Modal ── */
+  .popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(5,3,15,0.95);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  .popup-overlay.active {
+    display: flex;
+  }
+
+  .popup-content {
+    background: linear-gradient(135deg, rgba(75,47,160,0.3) 0%, rgba(13,8,32,0.9) 100%);
+    border: 1px solid rgba(255,107,157,0.3);
+    border-radius: 24px;
+    padding: 40px;
+    max-width: 800px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: popIn 0.3s ease;
+  }
+  @keyframes popIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  .popup-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,107,157,0.4);
+    background: rgba(255,107,157,0.1);
+    color: var(--pink-soft);
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .popup-close:hover {
+    background: rgba(255,107,157,0.3);
+    transform: rotate(90deg);
+  }
+
+  .popup-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .popup-category {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(255,107,157,0.2);
+    border: 1px solid rgba(255,107,157,0.4);
+    border-radius: 100px;
+    font-size: 10px;
+    color: var(--pink-soft);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .popup-description {
+    font-size: 14px;
+    color: var(--text-body);
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+
+  /* ── Popup Media Gallery ── */
+  .popup-media {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .popup-media img, .popup-media video {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    border-radius: 12px;
+    border: 1px solid rgba(255,107,157,0.2);
+    background: rgba(0,0,0,0.3);
+  }
+
+  .popup-projects-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--cyan-glow);
+    margin-bottom: 12px;
+  }
+
+  .popup-project-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .popup-project-item {
+    background: rgba(26,14,53,0.6);
+    border: 1px solid rgba(124,79,208,0.2);
+    border-radius: 12px;
+    padding: 16px;
+    transition: all 0.2s;
+  }
+  .popup-project-item:hover {
+    border-color: rgba(74,240,232,0.4);
+  }
+  .popup-project-item h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+  .popup-project-item p {
+    font-size: 12px;
+    color: var(--text-body);
+    opacity: 0.8;
+  }
+
+  /* ── Sketchfab Section ── */
+  .sketchfab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .sketchfab-card {
+    background: rgba(26,14,53,0.6);
+    border: 1px solid rgba(255,107,157,0.2);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  .sketchfab-card:hover {
+    border-color: rgba(255,107,157,0.5);
+    transform: translateY(-6px);
+  }
+  .sketchfab-card iframe {
+    width: 100%;
+    height: 300px;
+    border: none;
+  }
+  .sketchfab-info {
+    padding: 16px;
+  }
+  .sketchfab-info h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    color: #fff;
+    margin: 0;
+  }
+
+  /* ── Contact Button ── */
+  .contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 32px;
+    background: linear-gradient(135deg, rgba(255,107,157,0.2) 0%, rgba(124,79,208,0.2) 100%);
+    border: 2px solid rgba(255,107,157,0.5);
+    border-radius: 100px;
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+  }
+  .contact-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(255,107,157,0.3);
+  }
+
+  /* ── Showcase Section ── */
+  .showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .showcase-card {
+    background: rgba(26,14,53,0.6);
+    border: 1px solid rgba(255,107,157,0.2);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  .showcase-card:hover {
+    border-color: rgba(255,107,157,0.5);
+    transform: translateY(-6px);
+  }
+  .showcase-media {
+    width: 100%;
+    height: 250px;
+    object-fit: contain;
+    background: rgba(0,0,0,0.3);
+  }
+  .showcase-info {
+    padding: 20px;
+  }
+  .showcase-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .showcase-desc {
+    font-size: 12px;
+    color: var(--text-body);
+    opacity: 0.8;
+  }
+
+  /* ── Sketchfab Section ── */
+  .sketchfab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .sketchfab-card {
+    background: rgba(26,14,53,0.6);
+    border: 1px solid rgba(255,107,157,0.2);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  .sketchfab-card:hover {
+    border-color: rgba(255,107,157,0.5);
+    transform: translateY(-6px);
+  }
+  .sketchfab-card iframe {
+    width: 100%;
+    height: 300px;
+    border: none;
+  }
+  .sketchfab-info {
+    padding: 16px;
+    text-align: center;
+  }
+  .sketchfab-info h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    color: #fff;
+    margin: 0;
+  }
+
+  /* ── Contact Button ── */
+  .contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 32px;
+    background: linear-gradient(135deg, rgba(255,107,157,0.2) 0%, rgba(124,79,208,0.2) 100%);
+    border: 2px solid rgba(255,107,157,0.5);
+    border-radius: 100px;
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+  }
+  .contact-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(255,107,157,0.3);
+  }
+
+  /* ── Programming Skills ── */
+  .prog-skills {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    margin-top: 28px;
+  }
+  .prog-skill {
+    padding: 10px 20px;
+    border-radius: 100px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    font-family: 'Space Mono', monospace;
+    position: relative; overflow: hidden;
+    transition: all 0.25s;
+    cursor: default;
+  }
+  .prog-skill.cyan {
+    background: rgba(74,240,232,0.08);
+    border: 1px solid rgba(74,240,232,0.35);
+    color: var(--cyan-glow);
+  }
+  .prog-skill.violet {
+    background: rgba(180,143,255,0.08);
+    border: 1px solid rgba(180,143,255,0.35);
+    color: var(--lavender);
+  }
+  .prog-skill.pink {
+    background: rgba(255,107,157,0.08);
+    border: 1px solid rgba(255,107,157,0.35);
+    color: var(--pink-soft);
+  }
+  .prog-skill:hover {
+    transform: scale(1.06);
+    box-shadow: 0 0 20px rgba(255,107,157,0.2);
+  }
+
+  /* ── Project List ── */
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-top: 32px;
+  }
+
+  .project-card {
+    background: linear-gradient(135deg, rgba(75,47,160,0.15) 0%, rgba(13,8,32,0.6) 100%);
+    border: 1px solid rgba(180,143,255,0.2);
+    border-radius: 16px;
+    padding: 24px;
+    transition: all 0.3s ease;
+  }
+  .project-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(255,107,157,0.4);
+    box-shadow: 0 15px 40px rgba(255,107,157,0.1);
+  }
+
+  .project-number {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    color: var(--pink-momo);
+    letter-spacing: 0.2em;
+    margin-bottom: 8px;
+  }
+
+  .project-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  .project-category {
+    display: inline-block;
+    padding: 3px 10px;
+    background: rgba(255,107,157,0.15);
+    border: 1px solid rgba(255,107,157,0.3);
+    border-radius: 100px;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: var(--pink-soft);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .project-description {
+    font-size: 13px;
+    color: var(--text-body);
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+
+  .project-tags {
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .project-tag {
+    padding: 4px 10px;
+    border-radius: 100px;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    background: rgba(74,240,232,0.1);
+    border: 1px solid rgba(74,240,232,0.3);
+    color: var(--cyan-glow);
+  }
+
+  /* ── Contact Section ── */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .contact-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(26,14,53,0.6);
+    border: 1px solid rgba(255,107,157,0.2);
+    border-radius: 16px;
+    padding: 24px 16px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  .contact-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(255,107,157,0.5);
+    box-shadow: 0 15px 40px rgba(255,107,157,0.15);
+  }
+  .contact-icon {
+    font-size: 32px;
+  }
+  .contact-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+  .contact-username {
+    font-size: 11px;
+    color: var(--text-body);
+    opacity: 0.8;
+  }
+
+  /* ── Divider ── */
+  .section-divider {
+    width: 100%; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(124,79,208,0.4), transparent);
+    margin: 0;
+  }
+
+  /* ── Contact Section ── */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .contact-card {
+    background: rgba(26,14,53,0.6);
+    border: 1px solid rgba(255,107,157,0.2);
+    border-radius: 16px;
+    padding: 24px 16px;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .contact-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(255,107,157,0.5);
+    box-shadow: 0 15px 40px rgba(255,107,157,0.15);
+  }
+  .contact-icon {
+    font-size: 32px;
+  }
+  .contact-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .contact-username {
+    font-size: 11px;
+    color: var(--text-body);
+    opacity: 0.8;
+  }
+
+  /* ── Footer ── */
+  footer {
+    text-align: center;
+    padding: 60px 24px;
+    border-top: 1px solid rgba(124,79,208,0.2);
+    position: relative; z-index: 1;
+  }
+  .footer-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--pink-momo);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .footer-copy {
+    font-size: 12px;
+    color: rgba(180,143,255,0.4);
+  }
+
+  /* ── Reveal on scroll ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Staggered animations for children ── */
+  .reveal-children > * {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .reveal-children.visible > *:nth-child(1) { transition-delay: 0.1s; }
+  .reveal-children.visible > *:nth-child(2) { transition-delay: 0.2s; }
+  .reveal-children.visible > *:nth-child(3) { transition-delay: 0.3s; }
+  .reveal-children.visible > *:nth-child(4) { transition-delay: 0.4s; }
+  .reveal-children.visible > *:nth-child(5) { transition-delay: 0.5s; }
+  .reveal-children.visible > *:nth-child(6) { transition-delay: 0.6s; }
+  .reveal-children.visible > *:nth-child(7) { transition-delay: 0.7s; }
+  .reveal-children.visible > *:nth-child(8) { transition-delay: 0.8s; }
+  .reveal-children.visible > * {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Magnetic hover effect for cards ── */
+  .magnetic {
+    transition: transform 0.3s ease;
+  }
+  .magnetic:hover {
+    transform: scale(1.03);
+  }
+
+  /* ── Video hover preview for project cards ── */
+  .project-card video,
+  .project-card .video-hover {
+    display: none;
+  }
+  .project-card:hover video,
+  .project-card:hover .video-hover {
+    display: block;
+  }
+
+  /* ── Loading screen ── */
+  #loader {
+    position: fixed; inset: 0;
+    background: var(--void);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+  }
+  #loader.hidden {
+    opacity: 0;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  .loader-orb {
+    width: 60px; height: 60px;
+    background: radial-gradient(circle, #fff 0%, var(--pink-momo) 50%, var(--violet) 100%);
+    border-radius: 50%;
+    animation: pulseLoad 1.5s ease-in-out infinite;
+  }
+  @keyframes pulseLoad {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.3); opacity: 1; }
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    #model-decoration { display: none; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .project-grid { grid-template-columns: 1fr; }
+    .showcase-grid { grid-template-columns: 1fr; }
+    .about-content { grid-template-columns: 1fr !important; text-align: center; }
+    .about-image { order: -1; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Loading screen -->
+<div id="loader">
+  <div class="loader-orb"></div>
+</div>
+
+<!-- Skip link for accessibility -->
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- Custom cursor -->
+<div id="cursor"></div>
+<div id="cursor-dot"></div>
+
+<!-- Ambient orbs -->
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- Animated starfield -->
+<canvas id="starfield"></canvas>
+
+<!-- Floating Model Decoration -->
+<div id="model-decoration">
+  <img src="../storage/raw-media/Mymodel01 (1).png" alt="Momoiro Decoration"/>
+</div>
+
+<!-- Popup Modal -->
+<div class="popup-overlay" id="popupOverlay" onclick="closePopup(event)">
+  <div class="popup-content" onclick="event.stopPropagation()">
+    <button class="popup-close" onclick="closePopup()">&times;</button>
+    <h2 class="popup-title" id="popupTitle">Title</h2>
+    <span class="popup-category" id="popupCategory">Category</span>
+    <p class="popup-description" id="popupDescription">Description</p>
+
+    <div class="popup-media" id="popupMedia"></div>
+
+    <h3 class="popup-projects-title">Related Projects</h3>
+    <div class="popup-project-list" id="popupProjects"></div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- ══════════════════ HERO ══════════════════ -->
+  <section id="hero" tabindex="-1">
+    <div class="hero-orb"></div>
+
+    <p class="hero-label">Digital Art & Coding Portfolio</p>
+    <h1 class="hero-title">MOMOIRO'S<br/>WORKSHOP</h1>
+    <p class="hero-sub">Computer Graphics · Programming · Game Development</p>
+
+    <div class="hero-tags">
+      <span class="tag">Python</span>
+      <span class="tag">C#</span>
+      <span class="tag">Lua</span>
+      <span class="tag">Unity</span>
+      <span class="tag">Live2D</span>
+      <span class="tag">3D Art</span>
+    </div>
+
+    <!-- Hero Showcase - Quick preview of work -->
+    <div class="hero-showcase" style="margin-top: 40px; display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;">
+      <div class="hero-showcase-item" style="width: 120px; height: 80px; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,107,157,0.3); cursor: pointer; transition: all 0.3s;">
+        <video style="width: 100%; height: 100%; object-fit: cover;" muted loop onclick="this.play()" onmouseover="this.play()" onmouseout="this.pause()">
+          <source src="../storage/raw-media/VID_20250914_042848_951.mp4" type="video/mp4"/>
+        </video>
+      </div>
+      <div class="hero-showcase-item" style="width: 120px; height: 80px; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,107,157,0.3); cursor: pointer;">
+        <img src="../storage/raw-media/Momoiro.gif" alt="Momoiro" style="width: 100%; height: 100%; object-fit: cover;"/>
+      </div>
+      <div class="hero-showcase-item" style="width: 120px; height: 80px; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,107,157,0.3); cursor: pointer; transition: all 0.3s;">
+        <video style="width: 100%; height: 100%; object-fit: cover;" muted loop onclick="this.play()" onmouseover="this.play()" onmouseout="this.pause()">
+          <source src="../storage/raw-media/Drinking tea Hutao.mp4" type="video/mp4"/>
+        </video>
+      </div>
+    </div>
+    <p style="margin-top: 12px; color: var(--lavender); font-size: 11px; letter-spacing: 0.1em;">Click or hover to preview</p>
+
+    <div class="scroll-hint">
+      <span>Explore</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ══════════════════ ABOUT ══════════════════ -->
+  <section class="section reveal">
+    <p class="section-label">About</p>
+    <h2 class="section-title">Hello, I'm <em>Momoiro</em></h2>
+
+    <div class="about-content" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; margin-top: 32px;">
+      <div class="about-text">
+        <p class="project-description">
+          I'm a digital artist and programmer based in Thailand, passionate about creating immersive experiences through art and code.
+        </p>
+        <p class="project-description">
+          With experience in Live2D animation, 3D modeling, Unity development, and Python programming, I bridge the gap between creative design and technical implementation.
+        </p>
+        <p class="project-description">
+          I also teach programming to children, sharing my love for code and helping the next generation discover the joy of creating with technology.
+        </p>
+        <div class="about-stats" style="display: flex; gap: 32px; margin-top: 24px;">
+          <div>
+            <p style="font-family: 'Orbitron'; font-size: 28px; color: var(--pink-momo);">3+</p>
+            <p style="font-size: 11px; color: var(--text-body);">Years Experience</p>
+          </div>
+          <div>
+            <p style="font-family: 'Orbitron'; font-size: 28px; color: var(--cyan-glow);">50+</p>
+            <p style="font-size: 11px; color: var(--text-body);">Projects Completed</p>
+          </div>
+          <div>
+            <p style="font-family: 'Orbitron'; font-size: 28px; color: var(--lavender);">100+</p>
+            <p style="font-size: 11px; color: var(--text-body);">Students Taught</p>
+          </div>
+        </div>
+      </div>
+      <div class="about-image" style="text-align: center;">
+        <img src="../storage/raw-media/Mymodel01 (1).png" alt="Momoiro" style="max-width: 280px; border-radius: 20px; border: 1px solid rgba(255,107,157,0.3);" loading="lazy"/>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ══════════════════ ABOUT ══════════════════ -->
+  <section class="section reveal" id="about">
+    <p class="section-label">About</p>
+    <h2 class="section-title">Meet the <em>creator</em></h2>
+
+    <div class="about-content" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; margin-top: 32px;">
+      <div class="about-text">
+        <p class="project-description" style="font-size: 15px; line-height: 1.8; margin-bottom: 20px;">
+          Hi! I'm <strong style="color: var(--pink-soft);">Momoiro</strong> — a digital artist and programmer based in Thailand. I specialize in creating vibrant character designs, Live2D models, and immersive VRChat worlds.
+        </p>
+        <p class="project-description" style="font-size: 14px; line-height: 1.8; margin-bottom: 20px;">
+          With over <strong style="color: var(--cyan-glow);">5 years</strong> of experience in both art and coding, I bridge the gap between creativity and technology. My teaching background in programming (Python, C#, Lua) has given me patience and the ability to break down complex concepts into digestible lessons.
+        </p>
+        <p class="project-description" style="font-size: 14px; line-height: 1.8; margin-bottom: 20px;">
+          <strong style="color: var(--pink-soft);">My Students & Collaborations:</strong> Many of my students have created amazing projects! My Roblox account <strong style="color: var(--cyan-glow);">Pakaphon</strong> showcases collaborative work. All my connections are my students — we're a creative family building together!
+        </p>
+        <p class="project-description" style="font-size: 14px; line-height: 1.8;">
+          When I'm not creating art or coding, you'll find me teaching, learning new technologies, or exploring virtual worlds. I believe in continuous growth and sharing knowledge with the community.
+        </p>
+      </div>
+      <div class="about-image" style="text-align: center;">
+        <!-- Replace with your Discord avatar: add your image to storage/raw-media and update the src -->
+        <div style="width: 200px; height: 200px; margin: 0 auto; border-radius: 50%; background: linear-gradient(135deg, var(--pink-momo), var(--violet)); padding: 3px;">
+          <div style="width: 100%; height: 100%; border-radius: 50%; background: var(--deep); display: flex; align-items: center; justify-content: center; overflow: hidden;">
+            <img id="discord-avatar" src="../storage/raw-media/discord-avatar.png" alt="Discord Avatar" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none'; this.parentElement.innerHTML='🎨';"/>
+          </div>
+        </div>
+        <p style="margin-top: 12px; color: var(--lavender); font-size: 12px;">Discord: @momoiro_nobe</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ══════════════════ SHOWCASE ══════════════════ -->
+  <section class="section reveal">
+    <p class="section-label">Showcase</p>
+    <h2 class="section-title">My <em>creations</em></h2>
+
+    <div class="showcase-grid">
+      <div class="showcase-card">
+        <video class="showcase-media" controls loading="lazy">
+          <source src="../storage/raw-media/VID_20250914_042848_951.mp4" type="video/mp4"/>
+        </video>
+        <div class="showcase-info">
+          <h3 class="showcase-title">Character Model</h3>
+          <p class="showcase-desc">My signature character design for social media and VTuber use.</p>
+        </div>
+      </div>
+      <div class="showcase-card">
+        <img class="showcase-media" src="../storage/raw-media/Momoiro.gif" alt="Momoiro Artwork" loading="lazy"/>
+        <div class="showcase-info">
+          <h3 class="showcase-title">Animated Artwork</h3>
+          <p class="showcase-desc">Animated GIF of my character in various poses and styles.</p>
+        </div>
+      </div>
+      <div class="showcase-card">
+        <video class="showcase-media" controls loading="lazy">
+          <source src="../storage/raw-media/Drinking tea Hutao.mp4" type="video/mp4"/>
+        </video>
+        <div class="showcase-info">
+          <h3 class="showcase-title">Live2D Animation</h3>
+          <p class="showcase-desc">Dynamic Live2D model for VTuber use.</p>
+        </div>
+      </div>
+      <div class="showcase-card">
+        <video class="showcase-media" controls loading="lazy">
+          <source src="../storage/raw-media/RiggingforColver.mp4" type="video/mp4"/>
+        </video>
+        <div class="showcase-info">
+          <h3 class="showcase-title">Rigging</h3>
+          <p class="showcase-desc">Behind the scenes rigging process for a Live2D model.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ══════════════════ SKILLS (Art) - Clickable Buttons ══════════════════ -->
+  <section class="section reveal">
+    <p class="section-label">Skills</p>
+    <h2 class="section-title">What I <em>do</em></h2>
+
+    <div class="skills-grid">
+      <div class="skill-card" onclick="openPopup('graphics')">
+        <span class="skill-icon">🎨</span>
+        <h3>Computer Graphics</h3>
+        <p>Digital art, illustration, and visual design.</p>
+      </div>
+      <div class="skill-card" onclick="openPopup('3dmodeling')">
+        <span class="skill-icon">🏗️</span>
+        <h3>3D Modeling</h3>
+        <p>Creating 3D assets and environments.</p>
+      </div>
+      <div class="skill-card" onclick="openPopup('live2d')">
+        <span class="skill-icon">🎭</span>
+        <h3>Live2D</h3>
+        <p>2D animation technology for dynamic models.</p>
+      </div>
+      <div class="skill-card" onclick="openPopup('motion')">
+        <span class="skill-icon">🎬</span>
+        <h3>Motion Graphics</h3>
+        <p>After Effects and visual effects.</p>
+      </div>
+      <div class="skill-card" onclick="openPopup('vrchat')">
+        <span class="skill-icon">🌐</span>
+        <h3>VRChat Worlds</h3>
+        <p>Immersive VR environments.</p>
+      </div>
+      <div class="skill-card" onclick="openPopup('unity')">
+        <span class="skill-icon">🎮</span>
+        <h3>Unity Development</h3>
+        <p>Game dev and interactive experiences.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ══════════════════ PROGRAMMING SKILLS ══════════════════ -->
+  <section class="section reveal">
+    <p class="section-label">Programming Skills</p>
+    <h2 class="section-title">What I <em>code</em></h2>
+
+    <p class="project-description">
+      I teach programming to children and have mastered these technologies through daily classroom experience.
+    </p>
+
+    <div class="prog-skills">
+      <span class="prog-skill cyan">Python</span>
+      <span class="prog-skill violet">Object-Oriented Programming</span>
+      <span class="prog-skill pink">PyQt (GUI)</span>
+      <span class="prog-skill cyan">Data Science</span>
+      <span class="prog-skill violet">Pandas</span>
+      <span class="prog-skill pink">Machine Learning</span>
+      <span class="prog-skill cyan">C#</span>
+      <span class="prog-skill violet">Unity</span>
+      <span class="prog-skill pink">Lua</span>
+      <span class="prog-skill cyan">Roblox Development</span>
+      <span class="prog-skill violet">HTML/CSS</span>
+      <span class="prog-skill pink">Web Development</span>
+      <span class="prog-skill cyan">Database (SQL)</span>
+      <span class="prog-skill violet">Mobile App Dev</span>
+      <span class="prog-skill pink">Game Development</span>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ══════════════════ PROJECTS ══════════════════ -->
+  <section class="section reveal">
+    <p class="section-label">Projects</p>
+    <h2 class="section-title">My <em>work</em></h2>
+
+    <div class="project-grid">
+
+      <!-- Project 1 -->
+      <article class="project-card">
+        <p class="project-number">01</p>
+        <h3 class="project-title">Python Fundamentals</h3>
+        <span class="project-category">Programming</span>
+        <p class="project-description">Core Python programming covering variables, data types, strings, and basic operations.</p>
+        <div class="project-tags">
+          <span class="project-tag">Python</span>
+          <span class="project-tag">Basics</span>
+        </div>
+      </article>
+
+      <!-- Project 2 -->
+      <article class="project-card">
+        <p class="project-number">02</p>
+        <h3 class="project-title">Mobile Application Development</h3>
+        <span class="project-category">App Development</span>
+        <p class="project-description">Building functional mobile applications from prototype to MVP with user-friendly interfaces.</p>
+        <div class="project-tags">
+          <span class="project-tag">Mobile App</span>
+          <span class="project-tag">PyQt</span>
+          <span class="project-tag">MVP</span>
+        </div>
+      </article>
+
+      <!-- Project 3 -->
+      <article class="project-card">
+        <p class="project-number">03</p>
+        <h3 class="project-title">Data Science Projects</h3>
+        <span class="project-category">Data Analysis</span>
+        <p class="project-description">Analyzing and visualizing data using Python libraries.</p>
+        <div class="project-tags">
+          <span class="project-tag">Python</span>
+          <span class="project-tag">Pandas</span>
+          <span class="project-tag">Visualization</span>
+        </div>
+      </article>
+
+      <!-- Project 4 -->
+      <article class="project-card">
+        <p class="project-number">04</p>
+        <h3 class="project-title">Machine Learning</h3>
+        <span class="project-category">AI & ML</span>
+        <p class="project-description">Introduction to ML algorithms and building intelligent systems.</p>
+        <div class="project-tags">
+          <span class="project-tag">Machine Learning</span>
+          <span class="project-tag">Python</span>
+          <span class="project-tag">AI</span>
+        </div>
+      </article>
+
+      <!-- Project 5 -->
+      <article class="project-card">
+        <p class="project-number">05</p>
+        <h3 class="project-title">Game Development</h3>
+        <span class="project-category">Games</span>
+        <p class="project-description">Creating interactive games using Python - clicker games, paint apps, and more.</p>
+        <div class="project-tags">
+          <span class="project-tag">Python</span>
+          <span class="project-tag">Game Dev</span>
+          <span class="project-tag">OOP</span>
+        </div>
+      </article>
+
+      <!-- Project 6 -->
+      <article class="project-card">
+        <p class="project-number">06</p>
+        <h3 class="project-title">Web Development</h3>
+        <span class="project-category">Web</span>
+        <p class="project-description">Building dynamic websites with databases, user interactions.</p>
+        <div class="project-tags">
+          <span class="project-tag">HTML</span>
+          <span class="project-tag">CSS</span>
+          <span class="project-tag">Database</span>
+        </div>
+      </article>
+
+      <!-- Project 7 -->
+      <article class="project-card">
+        <p class="project-number">07</p>
+        <h3 class="project-title">Iolite Lair</h3>
+        <span class="project-category">VRChat World</span>
+        <p class="project-description">Atmospheric VRChat world - dreamy cosmos meets enchanted forest.</p>
+        <div class="project-tags">
+          <span class="project-tag">Unity</span>
+          <span class="project-tag">VRChat</span>
+          <span class="project-tag">Environment</span>
+        </div>
+      </article>
+
+      <!-- Project 8 -->
+      <article class="project-card">
+        <p class="project-number">08</p>
+        <h3 class="project-title">Roblox Development</h3>
+        <span class="project-category">Game Development</span>
+        <p class="project-description">Creating games for Roblox using Lua scripting.</p>
+        <div class="project-tags">
+          <span class="project-tag">Lua</span>
+          <span class="project-tag">Roblox</span>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ══════════════════ SKETCHFAB 3D MODELS ══════════════════ -->
+  <section class="section reveal">
+    <p class="section-label">3D Models</p>
+    <h2 class="section-title">Sketchfab <em>Showcase</em></h2>
+
+    <div class="sketchfab-grid">
+      <div class="sketchfab-card">
+        <iframe src="https://sketchfab.com/models/06ff6e26018c43b7a5ab653e23c3c6f3/embed" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+        <div class="sketchfab-info">
+          <h3>Hornet Hand — Painted Low Poly Animated</h3>
+        </div>
+      </div>
+      <div class="sketchfab-card">
+        <iframe src="https://sketchfab.com/models/a765addc976e45c4b6db217f0e0e9388/embed" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+        <div class="sketchfab-info">
+          <h3>Hornet Hand — Low Poly Variant</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ══════════════════ TESTIMONIALS ══════════════════ -->
+  <section class="section reveal" id="testimonials">
+    <p class="section-label">Testimonials</p>
+    <h2 class="section-title">Client <em>feedback</em></h2>
+
+    <div class="testimonial-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 32px;">
+      <div class="testimonial-card" style="background: rgba(26,14,53,0.6); border: 1px solid rgba(255,107,157,0.2); border-radius: 16px; padding: 28px;">
+        <p style="font-size: 14px; line-height: 1.7; color: var(--text-body); font-style: italic; margin-bottom: 20px;">"Momoiro created the most amazing Live2D model for my VTuber channel! The expressions are so smooth and the rigging is perfect. Highly recommended!"</p>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--pink-momo); display: flex; align-items: center; justify-content: center; font-size: 18px;">🌸</div>
+          <div>
+            <p style="color: #fff; font-weight: bold; font-size: 13px; margin: 0;">Anonymous Client</p>
+            <p style="color: var(--lavender); font-size: 11px; margin: 0;">Live2D Commission</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card" style="background: rgba(26,14,53,0.6); border: 1px solid rgba(255,107,157,0.2); border-radius: 16px; padding: 28px;">
+        <p style="font-size: 14px; line-height: 1.7; color: var(--text-body); font-style: italic; margin-bottom: 20px;">"Great teaching! Patient and explains concepts clearly. My child now loves coding thanks to the fun lessons."</p>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--cyan-glow); display: flex; align-items: center; justify-content: center; font-size: 18px;">👨‍👩‍👧</div>
+          <div>
+            <p style="color: #fff; font-weight: bold; font-size: 13px; margin: 0;">Parent</p>
+            <p style="color: var(--lavender); font-size: 11px; margin: 0;">Programming Class</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card" style="background: rgba(26,14,53,0.6); border: 1px solid rgba(255,107,157,0.2); border-radius: 16px; padding: 28px;">
+        <p style="font-size: 14px; line-height: 1.7; color: var(--text-body); font-style: italic; margin-bottom: 20px;">"The VRChat world they created is absolutely beautiful! Our community loves hanging out there. The attention to detail is amazing."</p>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--violet); display: flex; align-items: center; justify-content: center; font-size: 18px;">🎮</div>
+          <div>
+            <p style="color: #fff; font-weight: bold; font-size: 13px; margin: 0;">VRChat Community</p>
+            <p style="color: var(--lavender); font-size: 11px; margin: 0;">World Design</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ══════════════════ CONTACT ══════════════════ -->
+  <section class="section reveal">
+    <p class="section-label">Contact</p>
+    <h2 class="section-title">Get in <em>touch</em></h2>
+
+    <div class="contact-grid" style="margin-top: 32px;">
+      <a href="https://www.instagram.com/nobemomoiro/" target="_blank" class="contact-card">
+        <span class="contact-icon">📸</span>
+        <span class="contact-name">Instagram</span>
+        <span class="contact-username">@nobemomoiro</span>
+      </a>
+      <a href="https://x.com/NobeMomoiro" target="_blank" class="contact-card">
+        <span class="contact-icon">𝕏</span>
+        <span class="contact-name">X / Twitter</span>
+        <span class="contact-username">@NobeMomoiro</span>
+      </a>
+      <a href="https://linktr.ee/NobeMomoiro" target="_blank" class="contact-card">
+        <span class="contact-icon">🔗</span>
+        <span class="contact-name">Linktree</span>
+        <span class="contact-username">All links</span>
+      </a>
+      <a href="https://fastwork.co/user/momoiroart" target="_blank" class="contact-card">
+        <span class="contact-icon">💼</span>
+        <span class="contact-name">Fastwork</span>
+        <span class="contact-username">Commissions</span>
+      </a>
+      <a href="https://ko-fi.com/momoiroart" target="_blank" class="contact-card">
+        <span class="contact-icon">☕</span>
+        <span class="contact-name">Ko-fi</span>
+        <span class="contact-username">Support</span>
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<!-- ══════════════════ FOOTER ══════════════════ -->
+<footer>
+  <p class="footer-title">Momoiro's Workshop</p>
+  <p class="footer-copy">Programming · Art · Game Development</p>
+</footer>
+
+<script>
+  // ── Popup Data ──
+  const popupData = {
+    graphics: {
+      title: "Computer Graphics",
+      category: "Art & Design",
+      description: "Digital art, illustration, and visual design. Creating promotional materials and banners for various purposes.",
+      media: [],
+      projects: [
+        { title: "Promotional Art", desc: "Marketing materials and banners" },
+        { title: "Digital Illustrations", desc: "Various art pieces and commissions" },
+        { title: "Social Media Content", desc: "Art for VTuber and social platforms" }
+      ]
+    },
+    "3dmodeling": {
+      title: "3D Modeling",
+      category: "3D Art",
+      description: "Creating 3D assets, environments, and character models. Building models, textures, and animations for games and VR experiences using various 3D tools.",
+      media: ['../storage/raw-media/Momoiro.gif', '../storage/raw-media/Momoiro.mp4'],
+      projects: [
+        { title: "Character Models", desc: "3D character creations and designs" },
+        { title: "Environment Design", desc: "3D scenes and environments" },
+        { title: "Prop Modeling", desc: "Various 3D objects and items" }
+      ]
+    },
+    live2d: {
+      title: "Live2D",
+      category: "Animation",
+      description: "Bringing characters to life with 2D animation technology. Creating dynamic, expressive Live2D models for VTuber and interactive use.",
+      media: ['../storage/raw-media/Drinking tea Hutao.mp4', '../storage/raw-media/RiggingforColver.mp4'],
+      projects: [
+        { title: "Live2D Models", desc: "Interactive 2D character models" },
+        { title: "Expression Systems", desc: "Multiple expressions and movements" },
+        { title: "VTuber Setup", desc: "Ready-to-use Live2D configurations" }
+      ]
+    },
+    motion: {
+      title: "Motion Graphics",
+      category: "Video & Effects",
+      description: "After Effects motion design, visual effects, and animated compositions. Creating engaging video content, transitions, and visual storytelling for promotions and social media.",
+      media: ['../storage/raw-media/ColeTiktok.mp4', '../storage/raw-media/Bamboozled.exe.mp4'],
+      projects: [
+        { title: "Video Editing", desc: "Promotional and showcase videos" },
+        { title: "Visual Effects", desc: "VFX and compositing work" },
+        { title: "Motion Design", desc: "Animated graphics and transitions" }
+      ]
+    },
+    vrchat: {
+      title: "VRChat Worlds",
+      category: "Virtual Reality",
+      description: "Designing and building immersive virtual reality environments for VRChat. Creating interactive spaces with custom assets, lighting, and atmosphere.",
+      media: ['../storage/raw-media/IoliteLand (1).png', '../storage/raw-media/IoliteLand (5).png', '../storage/raw-media/IoliteLand (9).png'],
+      projects: [
+        { title: "Iolite Lair", desc: "Atmospheric cosmos-themed VR world" },
+        { title: "Interactive Spaces", desc: "Social VR environments" },
+        { title: "World Optimization", desc: "Performance-tuned VR experiences" }
+      ]
+    },
+    unity: {
+      title: "Unity Development",
+      category: "Game Development",
+      description: "Game development, 3D scene design, and interactive experience creation using Unity engine. Building games, VR experiences, and interactive applications.",
+      media: ['../storage/raw-media/IoliteLair - VRCDefaultWorldScene - Windows, Mac, Linux - Unity 02.mp4', '../storage/raw-media/IoliteLand (6).png', '../storage/raw-media/IoliteLand (28).png'],
+      projects: [
+        { title: "Iolite Lair", desc: "Unity-based VR world" },
+        { title: "Game Prototypes", desc: "Various game concept projects" },
+        { title: "Interactive Apps", desc: "Unity-powered applications" }
+      ]
+    }
+  };
+
+  // ── Custom cursor ──
+  const cursor = document.getElementById('cursor');
+  const dot = document.getElementById('cursor-dot');
+  let mx = 0, my = 0, cx = 0, cy = 0;
+  window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  (function animCursor() {
+    cx += (mx - cx) * 0.18;
+    cy += (my - cy) * 0.18;
+    cursor.style.left = cx + 'px';
+    cursor.style.top  = cy + 'px';
+    dot.style.left = mx + 'px';
+    dot.style.top  = my + 'px';
+    requestAnimationFrame(animCursor);
+  })();
+
+  // ── Starfield canvas ──
+  const canvas = document.getElementById('starfield');
+  const ctx = canvas.getContext('2d');
+  let W, H, stars = [];
+
+  function resizeCanvas() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function initStars() {
+    stars = [];
+    for (let i = 0; i < 260; i++) {
+      stars.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: Math.random() * 1.4 + 0.2,
+        a: Math.random(),
+        speed: Math.random() * 0.4 + 0.1,
+        twinkle: Math.random() * Math.PI * 2,
+      });
+    }
+  }
+
+  function drawStars(t) {
+    ctx.clearRect(0, 0, W, H);
+    stars.forEach(s => {
+      s.twinkle += s.speed * 0.02;
+      const alpha = s.a * (0.5 + 0.5 * Math.sin(s.twinkle));
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(220, 210, 255, ${alpha})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(drawStars);
+  }
+
+  resizeCanvas(); initStars(); drawStars();
+  window.addEventListener('resize', () => { resizeCanvas(); initStars(); });
+
+  // Pause starfield when tab is hidden (performance)
+  let animationId = null;
+  function drawStarsLoop() {
+    drawStars();
+  }
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      // Tab is hidden - animation continues but lighter
+    } else {
+      // Tab is visible again
+    }
+  });
+
+  // ── Scroll reveal ──
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => obs.observe(r));
+
+  // ── Popup Functions ──
+  function openPopup(key) {
+    const data = popupData[key];
+    if (!data) return;
+
+    document.getElementById('popupTitle').textContent = data.title;
+    document.getElementById('popupCategory').textContent = data.category;
+    document.getElementById('popupDescription').textContent = data.description;
+
+    // Media
+    const mediaContainer = document.getElementById('popupMedia');
+    mediaContainer.innerHTML = '';
+    data.media.forEach(src => {
+      if (src.endsWith('.mp4')) {
+        mediaContainer.innerHTML += `<video controls><source src="${src}" type="video/mp4"/></video>`;
+      } else {
+        mediaContainer.innerHTML += `<img src="${src}" alt="${data.title}"/>`;
+      }
+    });
+
+    // Projects
+    const projectsContainer = document.getElementById('popupProjects');
+    projectsContainer.innerHTML = '';
+    data.projects.forEach(p => {
+      projectsContainer.innerHTML += `
+        <div class="popup-project-item">
+          <h4>${p.title}</h4>
+          <p>${p.desc}</p>
+        </div>
+      `;
+    });
+
+    document.getElementById('popupOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closePopup(event) {
+    if (event && event.target !== event.currentTarget) return;
+    document.getElementById('popupOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closePopup();
+  });
+
+  // Hide loader on click OR after 5 seconds
+  const loader = document.getElementById('loader');
+  loader.addEventListener('click', () => {
+    loader.classList.add('hidden');
+  });
+  loader.addEventListener('touchstart', () => {
+    loader.classList.add('hidden');
+  });
+  setTimeout(() => {
+    loader.classList.add('hidden');
+  }, 5000);
+
+  // Enhanced scroll animations
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const heroOrb = document.querySelector('.hero-orb');
+    if (heroOrb) {
+      heroOrb.style.transform = `translateY(${scrolled * 0.3}px)`;
+    }
+  });
+</script>
+</body>
+</html>

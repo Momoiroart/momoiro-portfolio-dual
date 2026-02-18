@@ -1,0 +1,31 @@
+---
+interface ProjectItem {
+  number: string;
+  title: string;
+  category: string;
+  description: string;
+  tags: string[];
+}
+interface Props { projects: ProjectItem[]; }
+const { projects } = Astro.props;
+---
+
+<!-- ══════════════════ PROJECTS ══════════════════ -->
+<section class="section reveal">
+  <p class="section-label">Projects</p>
+  <h2 class="section-title">My <em>work</em></h2>
+
+  <div class="project-grid">
+    {projects.map(p => (
+      <article class="project-card">
+        <p class="project-number">{p.number}</p>
+        <h3 class="project-title">{p.title}</h3>
+        <span class="project-category">{p.category}</span>
+        <p class="project-description">{p.description}</p>
+        <div class="project-tags">
+          {p.tags.map(t => <span class="project-tag">{t}</span>)}
+        </div>
+      </article>
+    ))}
+  </div>
+</section>

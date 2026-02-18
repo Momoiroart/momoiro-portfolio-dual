@@ -1,0 +1,29 @@
+---
+interface ShowcaseItem { title: string; file: string; type: 'video' | 'image'; desc: string; }
+interface Props { items: ShowcaseItem[]; mediaBase: string; }
+const { items, mediaBase } = Astro.props;
+---
+
+<!-- ══════════════════ SHOWCASE ══════════════════ -->
+<section class="section reveal">
+  <p class="section-label">Showcase</p>
+  <h2 class="section-title">My <em>creations</em></h2>
+
+  <div class="showcase-grid">
+    {items.map(item => (
+      <div class="showcase-card">
+        {item.type === 'video' ? (
+          <video class="showcase-media" controls loading="lazy">
+            <source src={mediaBase + item.file} type="video/mp4"/>
+          </video>
+        ) : (
+          <img class="showcase-media" src={mediaBase + item.file} alt={item.title} loading="lazy"/>
+        )}
+        <div class="showcase-info">
+          <h3 class="showcase-title">{item.title}</h3>
+          <p class="showcase-desc">{item.desc}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

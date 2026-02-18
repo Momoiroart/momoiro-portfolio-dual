@@ -1,0 +1,100 @@
+---
+import { createRequire } from 'module';
+import Layout from '../layouts/Layout.astro';
+import Loader from '../components/Loader.astro';
+import Popup from '../components/Popup.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Showcase from '../components/Showcase.astro';
+import Skills from '../components/Skills.astro';
+import ProgrammingSkills from '../components/ProgrammingSkills.astro';
+import Projects from '../components/Projects.astro';
+import Sketchfab from '../components/Sketchfab.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+
+// Load shared content (CJS UMD module) via createRequire
+const siteContent = createRequire(import.meta.url)('../../../shared-content/content.js');
+
+// publicDir is my-portfolio/storage/raw-media, Astro serves it at "/"
+const mediaBase = '/';
+---
+
+<Layout>
+  <!-- Loading screen -->
+  <Loader/>
+
+  <!-- Skip link for accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Custom cursor -->
+  <div id="cursor"></div>
+  <div id="cursor-dot"></div>
+
+  <!-- Ambient orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Animated starfield -->
+  <canvas id="starfield"></canvas>
+
+  <!-- Popup (data bridge: build-time data → browser JS) -->
+  <Popup popupData={siteContent.popupData} mediaBase={mediaBase}/>
+
+  <div id="main-content" class="page">
+
+    <!-- Hero + floating decoration -->
+    <Hero
+      tags={siteContent.heroTags}
+      showcase={siteContent.heroShowcase}
+      decorationFile={siteContent.decorationFile}
+      mediaBase={mediaBase}
+    />
+
+    <div class="section-divider"></div>
+
+    <!-- About -->
+    <About mediaBase={mediaBase}/>
+
+    <div class="section-divider"></div>
+
+    <!-- Showcase -->
+    <Showcase items={siteContent.showcase} mediaBase={mediaBase}/>
+
+    <div class="section-divider"></div>
+
+    <!-- Skills (clickable cards) -->
+    <Skills/>
+
+    <div class="section-divider"></div>
+
+    <!-- Programming Skills -->
+    <ProgrammingSkills skills={siteContent.programmingSkills}/>
+
+    <div class="section-divider"></div>
+
+    <!-- Projects -->
+    <Projects projects={siteContent.projects}/>
+
+    <div class="section-divider"></div>
+
+    <!-- Sketchfab 3D Models -->
+    <Sketchfab models={siteContent.sketchfabModels}/>
+
+    <div class="section-divider"></div>
+
+    <!-- Testimonials -->
+    <Testimonials testimonials={siteContent.testimonials}/>
+
+    <div class="section-divider"></div>
+
+    <!-- Contact -->
+    <Contact links={siteContent.contactLinks}/>
+
+  </div>
+
+  <!-- Footer -->
+  <Footer/>
+</Layout>

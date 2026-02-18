@@ -1,0 +1,50 @@
+---
+interface HeroItem { file: string; type: 'video' | 'image'; }
+interface Props {
+  tags: string[];
+  showcase: HeroItem[];
+  decorationFile: string;
+  mediaBase: string;
+}
+const { tags, showcase, decorationFile, mediaBase } = Astro.props;
+---
+
+<!-- Floating Model Decoration -->
+<div id="model-decoration">
+  <img src={mediaBase + decorationFile} alt="Momoiro Decoration"/>
+</div>
+
+<!-- ══════════════════ HERO ══════════════════ -->
+<section id="hero" tabindex="-1">
+  <div class="hero-orb"></div>
+
+  <p class="hero-label">Digital Art & Coding Portfolio</p>
+  <h1 class="hero-title">MOMOIRO'S<br/>WORKSHOP</h1>
+  <p class="hero-sub">Computer Graphics · Programming · Game Development</p>
+
+  <div class="hero-tags">
+    {tags.map(tag => <span class="tag">{tag}</span>)}
+  </div>
+
+  <!-- Hero Showcase -->
+  <div class="hero-showcase" style="margin-top: 40px; display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;">
+    {showcase.map(item => (
+      <div class="hero-showcase-item" style="width: 120px; height: 80px; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,107,157,0.3); cursor: pointer; transition: all 0.3s;">
+        {item.type === 'video' ? (
+          <video style="width: 100%; height: 100%; object-fit: cover;" muted loop
+            onmouseover="this.play()" onmouseout="this.pause()">
+            <source src={mediaBase + item.file} type="video/mp4"/>
+          </video>
+        ) : (
+          <img src={mediaBase + item.file} alt="Preview" style="width: 100%; height: 100%; object-fit: cover;"/>
+        )}
+      </div>
+    ))}
+  </div>
+  <p style="margin-top: 12px; color: var(--lavender); font-size: 11px; letter-spacing: 0.1em;">Click or hover to preview</p>
+
+  <div class="scroll-hint">
+    <span>Explore</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>

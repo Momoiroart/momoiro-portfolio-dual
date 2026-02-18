@@ -1,0 +1,27 @@
+---
+interface Model { modelId: string; label: string; }
+interface Props { models: Model[]; }
+const { models } = Astro.props;
+---
+
+<!-- ══════════════════ SKETCHFAB 3D MODELS ══════════════════ -->
+<section class="section reveal">
+  <p class="section-label">3D Models</p>
+  <h2 class="section-title">Sketchfab <em>Showcase</em></h2>
+
+  <div class="sketchfab-grid">
+    {models.map(m => (
+      <div class="sketchfab-card">
+        <iframe
+          src={`https://sketchfab.com/models/${m.modelId}/embed`}
+          allowfullscreen
+          mozallowfullscreen="true"
+          webkitallowfullscreen="true"
+        ></iframe>
+        <div class="sketchfab-info">
+          <h3>{m.label}</h3>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
