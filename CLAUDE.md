@@ -20,13 +20,13 @@ D:\Claude\
 ├── BOOTSTRAP.md
 │
 ├── my-portfolio/
-│       ├── README.md
-│       ├── src/
-│       │   └── index.html             # Main portfolio (single HTML file with all CSS/JS)
-│       └── backup/                    # Timestamped HTML backups
+│   ├── README.md
+│   ├── src/
+│   │   └── index.html                 # Main portfolio (single HTML file with all CSS/JS)
+│   ├── storage/
+│   │   └── raw-media/                 # All media assets (images, videos, GIFs)
+│   └── backup/                        # Timestamped HTML backups
 │
-├── storage/
-│   └── raw-media/                     # All media assets (images, videos, GIFs)
 │
 └── Notes/
     ├── learning/
@@ -51,7 +51,7 @@ This is a static HTML file - no build process required.
 - Go to https://app.netlify.com/drop
 - Drag the `my-portfolio/` folder (including `src/` and any linked assets)
 
-**Note:** Media files live in `storage/raw-media/`. If the HTML references `WorkStorage/...` paths, they may need updating to `../../../storage/raw-media/...` relative to `src/index.html`.
+**Deploy to Netlify:** Drag the `my-portfolio/` folder — it contains `src/index.html` and `storage/raw-media/` together, so everything works out of the box.
 
 ## Site Structure
 
