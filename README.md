@@ -9,6 +9,14 @@
 
 ---
 
+## 🖼️ Preview
+
+![Portfolio Preview](screenshots/portfolio-hero.png)
+
+**🌐 Live Demo:** [https://momoirosworkshop.netlify.app/](https://momoirosworkshop.netlify.app/)
+
+---
+
 ## 📖 About
 
 **Momoiro Portfolio** is a creative portfolio website designed with a unique **dual architecture** approach:
@@ -331,6 +339,15 @@ Simply upload `static-legacy/` to any static host:
 - **First Contentful Paint:** < 1s
 - **Time to Interactive:** < 2s
 - **Total Bundle Size:** < 50KB (excluding media)
+
+---
+
+## 🏷️ GitHub Topics
+
+**Recommended topics for this repository:**
+`portfolio` `astro` `dual-architecture` `static-site` `web-development` `frontend` `netlify` `component-based` `personal-website` `creative-portfolio`
+
+Add these topics via: **Settings** → **Topics** → Enter keywords
 
 ---
 
