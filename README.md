@@ -13,7 +13,7 @@
 
 ![Portfolio Preview](screenshots/portfolio-hero.png)
 
-**🌐 Live Demo:** [https://momoirosworkshop.netlify.app/](https://momoirosworkshop.netlify.app/)
+**🌐 Live Demo:** [https://dist-rho-vert.vercel.app](https://dist-rho-vert.vercel.app)
 
 ---
 
