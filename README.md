@@ -12,7 +12,7 @@
 ## 🖼️ Preview
 
 
-**🌐 Live Demo:** [https://static-legacy.vercel.app](https://momoiro-workshop.vercel.app/))
+**🌐 Live Demo:** [https://momoiro-workshop.vercel.app](https://momoiro-workshop.vercel.app/)
 
 ---
 
