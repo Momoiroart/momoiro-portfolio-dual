@@ -11,9 +11,8 @@
 
 ## 🖼️ Preview
 
-![Portfolio Preview](screenshots/portfolio-hero.png)
 
-**🌐 Live Demo:** [https://static-legacy.vercel.app](https://static-legacy.vercel.app)
+**🌐 Live Demo:** [https://static-legacy.vercel.app](https://momoiro-workshop.vercel.app/))
 
 ---
 
