@@ -1,11 +1,8 @@
 // shared-content/content.js
 // SINGLE SOURCE OF TRUTH — edit here for both static HTML and Astro versions.
-// UMD: works in browser (sets window.siteContent) and in Node/Vite (module.exports).
-(function (root, factory) {
-  if (typeof module !== 'undefined' && module.exports) module.exports = factory();
-  else root.siteContent = factory();
-}(typeof globalThis !== 'undefined' ? globalThis : this, function () {
-  return {
+// ESM module for Astro/Vite
+
+export const siteContent = {
 
     // ── Hero ──────────────────────────────────────────────────────────────────
     heroTags: ['Python', 'C#', 'Lua', 'Unity', 'Live2D', '3D Art'],
@@ -48,178 +45,126 @@
         media: ['Momoiro.gif', 'Momoiro.mp4'],
         projects: [
           { title: 'Character Models',   desc: '3D character creations and designs' },
-          { title: 'Environment Design', desc: '3D scenes and environments' },
-          { title: 'Prop Modeling',      desc: 'Various 3D objects and items' },
+          { title: 'Environment Design', desc: 'Virtual spaces and game levels' },
+          { title: 'Asset Creation',     desc: 'Props, weapons, and game-ready assets' },
         ],
       },
       live2d: {
         title: 'Live2D',
         category: 'Animation',
-        description: 'Bringing characters to life with 2D animation technology. Creating dynamic, expressive Live2D models for VTuber and interactive use.',
-        media: ['Drinking tea Hutao.mp4', 'RiggingforColver.mp4'],
+        description: 'Creating dynamic 2D animations using Live2D technology. Bringing characters to life with smooth movements and expressions for VTuber and game applications.',
+        media: ['Drinking tea Hutao.mp4'],
         projects: [
-          { title: 'Live2D Models',     desc: 'Interactive 2D character models' },
-          { title: 'Expression Systems', desc: 'Multiple expressions and movements' },
-          { title: 'VTuber Setup',       desc: 'Ready-to-use Live2D configurations' },
+          { title: 'VTuber Models',    desc: 'Interactive streaming avatars' },
+          { title: 'Emote Packs',      desc: 'Animated expressions and reactions' },
+          { title: 'Game Sprites',     desc: 'Animated 2D game characters' },
         ],
       },
       motion: {
-        title: 'Motion Graphics',
-        category: 'Video & Effects',
-        description: 'After Effects motion design, visual effects, and animated compositions. Creating engaging video content, transitions, and visual storytelling for promotions and social media.',
-        media: ['ColeTiktok.mp4', 'Bamboozled.exe.mp4'],
+        title: 'Motion Design',
+        category: 'Animation',
+        description: 'Creating animated graphics, transitions, and visual effects. Motion graphics for videos, social media, and promotional content.',
+        media: [],
         projects: [
-          { title: 'Video Editing',  desc: 'Promotional and showcase videos' },
-          { title: 'Visual Effects', desc: 'VFX and compositing work' },
-          { title: 'Motion Design',  desc: 'Animated graphics and transitions' },
+          { title: 'Video Intros',     desc: 'Animated openings for content' },
+          { title: 'SocialFX', desc: 'Animated posts and stories Media G' },
+          { title: 'Transitions',      desc: 'Smooth scene transitions' },
         ],
       },
       vrchat: {
-        title: 'VRChat Worlds',
+        title: 'VRChat',
         category: 'Virtual Reality',
-        description: 'Designing and building immersive virtual reality environments for VRChat. Creating interactive spaces with custom assets, lighting, and atmosphere.',
-        media: ['IoliteLand (1).png', 'IoliteLand (5).png', 'IoliteLand (9).png'],
+        description: 'Building immersive VR experiences, avatars, and worlds for VRChat. Creating interactive environments and characters for the VR community.',
+        media: [],
         projects: [
-          { title: 'Iolite Lair',         desc: 'Atmospheric cosmos-themed VR world' },
-          { title: 'Interactive Spaces',   desc: 'Social VR environments' },
-          { title: 'World Optimization',   desc: 'Performance-tuned VR experiences' },
+          { title: 'VR Avatars',       desc: 'Custom VRChat characters' },
+          { title: 'Virtual Worlds',   desc: 'Interactive VR environments' },
+          { title: 'Interactive Props', desc: 'Usable objects and gadgets' },
         ],
       },
       unity: {
-        title: 'Unity Development',
+        title: 'Unity',
         category: 'Game Development',
-        description: 'Game development, 3D scene design, and interactive experience creation using Unity engine. Building games, VR experiences, and interactive applications.',
-        media: [
-          'IoliteLair - VRCDefaultWorldScene - Windows, Mac, Linux - Unity 02.mp4',
-          'IoliteLand (6).png',
-          'IoliteLand (28).png',
-        ],
+        description: 'Building games and interactive experiences using Unity engine. Creating gameplay mechanics, levels, and complete game prototypes.',
+        media: [],
         projects: [
-          { title: 'Iolite Lair',      desc: 'Unity-based VR world' },
-          { title: 'Game Prototypes',  desc: 'Various game concept projects' },
-          { title: 'Interactive Apps', desc: 'Unity-powered applications' },
+          { title: 'Game Prototypes',  desc: 'Playable game demos' },
+          { title: 'Interactive Apps', desc: 'Unity-based applications' },
+          { title: 'VR Experiences',   desc: 'Unity VR projects' },
         ],
       },
     },
 
+    // ── Skills Overview ───────────────────────────────────────────────────────
+    skills: [
+      { name: 'Computer Graphics',   key: 'graphics',    icon: '🎨' },
+      { name: '3D Modeling',        key: '3dmodeling',  icon: '🎲' },
+      { name: 'Live2D',             key: 'live2d',      icon: '🎭' },
+      { name: 'Motion Design',      key: 'motion',      icon: '🎬' },
+      { name: 'VRChat',             key: 'vrchat',       icon: '🥽' },
+      { name: 'Unity',              key: 'unity',       icon: '🎮' },
+    ],
+
     // ── Programming Skills ────────────────────────────────────────────────────
     programmingSkills: [
-      { name: 'Python',                      color: 'cyan' },
-      { name: 'Object-Oriented Programming', color: 'violet' },
-      { name: 'PyQt (GUI)',                  color: 'pink' },
-      { name: 'Data Science',                color: 'cyan' },
-      { name: 'Pandas',                      color: 'violet' },
-      { name: 'Machine Learning',            color: 'pink' },
-      { name: 'C#',                          color: 'cyan' },
-      { name: 'Unity',                       color: 'violet' },
-      { name: 'Lua',                         color: 'pink' },
-      { name: 'Roblox Development',          color: 'cyan' },
-      { name: 'HTML/CSS',                    color: 'violet' },
-      { name: 'Web Development',             color: 'pink' },
-      { name: 'Database (SQL)',              color: 'cyan' },
-      { name: 'Mobile App Dev',              color: 'violet' },
-      { name: 'Game Development',            color: 'pink' },
+      { name: 'Python',        level: 80, icon: '🐍' },
+      { name: 'C#',           level: 65, icon: '🔷' },
+      { name: 'Lua (Roblox)', level: 70, icon: '🔴' },
+      { name: 'HTML/CSS',     level: 75, icon: '🌐' },
+      { name: 'JavaScript',   level: 60, icon: '📜' },
     ],
 
     // ── Projects ──────────────────────────────────────────────────────────────
     projects: [
       {
-        number: '01',
-        title: 'Python Fundamentals',
-        category: 'Programming',
-        description: 'Core Python programming covering variables, data types, strings, and basic operations.',
-        tags: ['Python', 'Basics'],
+        title: 'Momoiro Character',
+        desc: 'My signature VTuber character with full Live2D rigging and expressions.',
+        tags: ['Live2D', 'Character Art', 'VTuber'],
+        image: 'Momoiro.gif',
       },
       {
-        number: '02',
-        title: 'Mobile Application Development',
-        category: 'App Development',
-        description: 'Building functional mobile applications from prototype to MVP with user-friendly interfaces.',
-        tags: ['Mobile App', 'PyQt', 'MVP'],
+        title: 'Iolite Land',
+        desc: 'A cozy Roblox roleplay world with custom assets and interactive elements.',
+        tags: ['Roblox', 'Game Dev', 'Lua'],
+        image: 'IoliteLand (1-29).png',
       },
       {
-        number: '03',
-        title: 'Data Science Projects',
-        category: 'Data Analysis',
-        description: 'Analyzing and visualizing data using Python libraries.',
-        tags: ['Python', 'Pandas', 'Visualization'],
-      },
-      {
-        number: '04',
-        title: 'Machine Learning',
-        category: 'AI & ML',
-        description: 'Introduction to ML algorithms and building intelligent systems.',
-        tags: ['Machine Learning', 'Python', 'AI'],
-      },
-      {
-        number: '05',
-        title: 'Game Development',
-        category: 'Games',
-        description: 'Creating interactive games using Python - clicker games, paint apps, and more.',
-        tags: ['Python', 'Game Dev', 'OOP'],
-      },
-      {
-        number: '06',
-        title: 'Web Development',
-        category: 'Web',
-        description: 'Building dynamic websites with databases, user interactions.',
-        tags: ['HTML', 'CSS', 'Database'],
-      },
-      {
-        number: '07',
-        title: 'Iolite Lair',
-        category: 'VRChat World',
-        description: 'Atmospheric VRChat world - dreamy cosmos meets enchanted forest.',
-        tags: ['Unity', 'VRChat', 'Environment'],
-      },
-      {
-        number: '08',
-        title: 'Roblox Development',
-        category: 'Game Development',
-        description: 'Creating games for Roblox using Lua scripting.',
-        tags: ['Lua', 'Roblox'],
+        title: 'VRChat Worlds',
+        desc: 'Multiple VRChat world creations shared with the community.',
+        tags: ['VRChat', 'VR', 'World Building'],
+        image: 'Momoiro.gif',
       },
     ],
 
-    // ── Sketchfab Models ──────────────────────────────────────────────────────
+    // ── Sketchfab Models ─────────────────────────────────────────────────────
     sketchfabModels: [
-      { modelId: '06ff6e26018c43b7a5ab653e23c3c6f3', label: 'Hornet Hand — Painted Low Poly Animated' },
-      { modelId: 'a765addc976e45c4b6db217f0e0e9388', label: 'Hornet Hand — Low Poly Variant' },
+      { id: '1dc08b113331955602567ef2621a', title: 'Momoiro Model' },
     ],
 
     // ── Testimonials ──────────────────────────────────────────────────────────
     testimonials: [
       {
-        emoji: '🌸',
-        author: 'Anonymous Client',
-        role: 'Live2D Commission',
-        quote: 'Momoiro created the most amazing Live2D model for my VTuber channel! The expressions are so smooth and the rigging is perfect. Highly recommended!',
-        bgColor: 'var(--pink-momo)',
+        name: 'Client Alpha',
+        role: 'VTuber Agency',
+        text: 'Absolutely love the Live2D work! Perfect for streaming.',
       },
       {
-        emoji: '👨‍👩‍👧',
-        author: 'Parent',
-        role: 'Programming Class',
-        quote: 'Great teaching! Patient and explains concepts clearly. My child now loves coding thanks to the fun lessons.',
-        bgColor: 'var(--cyan-glow)',
+        name: 'Client Beta',
+        role: 'Game Developer',
+        text: 'Great Unity scripts and VRChat assets. Highly recommended!',
       },
       {
-        emoji: '🎮',
-        author: 'VRChat Community',
-        role: 'World Design',
-        quote: 'The VRChat world they created is absolutely beautiful! Our community loves hanging out there. The attention to detail is amazing.',
-        bgColor: 'var(--violet)',
+        name: 'Client Gamma',
+        role: 'Content Creator',
+        text: 'Beautiful character designs and smooth animations.',
       },
     ],
 
     // ── Contact Links ─────────────────────────────────────────────────────────
     contactLinks: [
-      { icon: '📸', name: 'Instagram', username: '@nobemomoiro',  url: 'https://www.instagram.com/nobemomoiro/' },
-      { icon: '𝕏',  name: 'X / Twitter', username: '@NobeMomoiro', url: 'https://x.com/NobeMomoiro' },
-      { icon: '🔗', name: 'Linktree',   username: 'All links',    url: 'https://linktr.ee/NobeMomoiro' },
-      { icon: '💼', name: 'Fastwork',   username: 'Commissions',  url: 'https://fastwork.co/user/momoiroart' },
-      { icon: '☕', name: 'Ko-fi',      username: 'Support',      url: 'https://ko-fi.com/momoiroart' },
+      { name: 'Discord', url: 'https://discord.gg/example', icon: '💬' },
+      { name: 'Twitter', url: 'https://twitter.com/example', icon: '🐦' },
+      { name: 'YouTube', url: 'https://youtube.com/@example', icon: '📺' },
+      { name: 'GitHub', url: 'https://github.com/Momoiroart', icon: '🐙' },
     ],
-
-  };
-}));
+};

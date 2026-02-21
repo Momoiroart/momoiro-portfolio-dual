@@ -1,24 +1,25 @@
 ---
 import { createRequire } from 'module';
 import Layout from '../layouts/Layout.astro';
-import Loader from '../components/Loader.astro';
-import Popup from '../components/Popup.astro';
-import Hero from '../components/Hero.astro';
-import About from '../components/About.astro';
-import Showcase from '../components/Showcase.astro';
-import Skills from '../components/Skills.astro';
-import ProgrammingSkills from '../components/ProgrammingSkills.astro';
-import Projects from '../components/Projects.astro';
-import Sketchfab from '../components/Sketchfab.astro';
-import Testimonials from '../components/Testimonials.astro';
-import Contact from '../components/Contact.astro';
-import Footer from '../components/Footer.astro';
+import Loader from '../Loader.astro';
+import Popup from '../Popup.astro';
+import Hero from '../Hero.astro';
+import About from '../About.astro';
+import Showcase from '../Showcase.astro';
+import Skills from '../Skills.astro';
+import ProgrammingSkills from '../ProgrammingSkills.astro';
+import Projects from '../Projects.astro';
+import Sketchfab from '../Sketchfab.astro';
+import Testimonials from '../Testimonials.astro';
+import Contact from '../Contact.astro';
+import Footer from '../Footer.astro';
 
-// Load shared content (CJS UMD module) via createRequire
-const siteContent = createRequire(import.meta.url)('../../../shared-content/content.js');
+// Load shared content
+import { siteContent } from '../../shared-content/content.js';
 
-// publicDir is my-portfolio/storage/raw-media, Astro serves it at "/"
+// publicDir is storage, Astro serves it at "/"
 const mediaBase = '/';
+const { heroTags, heroShowcase, decorationFile, popupData, showcase, skills, programmingSkills, projects, sketchfabModels, testimonials, contactLinks } = siteContent;
 ---
 
 <Layout>
