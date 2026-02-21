@@ -13,7 +13,7 @@
 
 ![Portfolio Preview](screenshots/portfolio-hero.png)
 
-**🌐 Live Demo:** [https://dist-rho-vert.vercel.app](https://dist-rho-vert.vercel.app)
+**🌐 Live Demo:** [https://static-legacy.vercel.app](https://static-legacy.vercel.app)
 
 ---
 
